@@ -37,6 +37,28 @@ The `PaymentMethod` interface is small and focused. It only contains the methods
 
 ---
 
+## Java Reflection (MainWithReflection.java)
+
+The project includes a second main class that demonstrates how Java Reflection works.
+
+**Standard approach:**
+```java
+PaymentMethod creditCard = new CreditCardPayment(cardNumber, cardHolder, expiryDate);
+```
+
+**Reflection approach:**
+```java
+Class<?> clazz = Class.forName("payments.impl.CreditCardPayment");
+Constructor<?> constructor = clazz.getConstructor(String.class, String.class, String.class);
+PaymentMethod creditCard = (PaymentMethod) constructor.newInstance(cardNumber, cardHolder, expiryDate);
+```
+
+The key difference is that with reflection, the class name is just a `String`. Java does not know which class will be used until the program actually runs. This is called **runtime binding**.
+
+In this project, reflection is used for learning purposes. In real-world applications it is commonly found in frameworks like Spring and Hibernate, where objects are created dynamically based on configuration.
+
+---
+
 ## How to Run
 
 **Requirements:** Java 17 or higher
